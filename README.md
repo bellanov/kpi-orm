@@ -1,6 +1,6 @@
 # kpi-orm
 
-Datastore client for the KPI project.
+*Datastore* client for the KPI project.
 
 ## Installation
 
