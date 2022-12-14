@@ -1,17 +1,6 @@
-# Python Template
+# kpi-orm
 
-Template for general `Python` development.
-
-## Requirements
-
-The project is configured to build and test using `tox` in a _Python 3.9_ environment, but the code is valid for the following versions:
-
-- Python 3.7
-- Python 3.8
-- Python 3.9
-- Python 3.10
-
-Modify ***Line 3*** in the `tox.ini` file to the version(s) of Python relevant to your projects. To test your code in multiple versions all at once, simply list them all i.e., **py{38}**, **py{39}**, **py{310}**.
+Datastore client for the KPI project.
 
 ## Installation
 
