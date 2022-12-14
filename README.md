@@ -5,6 +5,6 @@
 ### Models
 
 - *Metric* : instance of data from the environment (i.e., traces, logs)
-- *KPI* : calculated by summarizing a one or more Metrics
+- *KPI* : summary of one or more Metric(s)
 
    ```
