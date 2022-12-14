@@ -2,8 +2,6 @@
 
 *Datastore* client for the KPI project.
 
-Django x Jinja Integration.
-
 ### Models
 
 - *Metric* : instance of data from the environment (i.e., traces, logs)
