@@ -2,7 +2,7 @@
 
 import pytest
 
-from package import hello
+from kpi_orm import hello
 
 
 @pytest.mark.unit

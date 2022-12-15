@@ -8,12 +8,19 @@ setenv =
     POWERTOOLS_TRACE_DISABLED=1
     PYTEST_ADDOPTS=--junit-prefix={envname} --junit-xml=coverage/junit.xml
     PIP_EXTRA_INDEX_URL=https://pypi.python.org/simple
+    NUM_WORKERS=25
 deps =
     coverage
     pytest
     mock
+    flask
+    functions_framework
+    google-auth
+    google-cloud-ndb
+    pandas
+    yfinance
     -rrequirements.txt
-allowlist_externals = mkdir
+whitelist_externals = mkdir
 commands =
     mkdir coverage/
     coverage run -p -m pytest -vv tests/
@@ -21,8 +28,11 @@ commands =
 [testenv:lint]
 deps =
     backoff
+    functions_framework
     google-cloud-ndb
     google-auth
+    yfinance
+    pandas
     pytest
     pylint
 commands =
@@ -41,6 +51,42 @@ deps =
 commands =
     black --line-length=150 scripts/ src/ tests/
 
+[testenv:quickstart]
+passenv = GOOGLE_APPLICATION_CREDENTIALS
+deps =
+    google-cloud-ndb
+commands =
+    python scripts/quickstart.py
+
+[testenv:store_asset_data]
+setenv = 
+    NUM_WORKERS=25
+passenv = GOOGLE_APPLICATION_CREDENTIALS
+deps =
+    google-cloud-ndb
+    pandas
+    yfinance
+commands =
+    python scripts/store_asset_data.py
+
+[testenv:test_quickstart]
+passenv = GOOGLE_APPLICATION_CREDENTIALS
+deps =
+    backoff
+    pytest
+    google-cloud-ndb
+commands =
+    pytest -vv scripts/
+
+[testenv:pool]
+passenv = GOOGLE_APPLICATION_CREDENTIALS
+deps =
+    backoff
+    pytest
+    google-cloud-ndb
+commands =
+    python scripts/worker_pool.py
+
 [testenv:clean]
 deps =
     coverage
@@ -48,7 +94,7 @@ deps =
     mock
 skip_install = true
 envdir = {toxworkdir}/coverage
-allowlist_externals = rm
+whitelist_externals = rm
 commands =
     rm -rf dist/
     rm -rf coverage/
@@ -87,12 +133,3 @@ skip_install = true
 commands =
     {[testenv:build]commands}
     twine upload --skip-existing dist/*.*
-
-[testenv:datastore]
-passenv = GOOGLE_APPLICATION_CREDENTIALS
-deps =
-    backoff
-    pytest
-    google-cloud-ndb
-commands =
-    python scripts/db.py
